@@ -1,6 +1,7 @@
 import model.Region;
 import model.Resort;
 import model.User;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +23,12 @@ public class App {
         parseResortList();
 
         user = new User("Steve");
+
+        //greet
+        System.out.println("Welcome to the Epic Pass purchase calculator!");
+        System.out.println("_____________________________________________");
+        System.out.println();
+
         //run
         run();
 
@@ -30,12 +37,6 @@ public class App {
     public static void run() {
 
         while(true) {
-            if (!user.getResortPlans().isEmpty()) {
-                System.out.println("You have selected:");
-                for (Map.Entry<Resort, Integer> entry : user.getResortPlans().entrySet()) {
-                    System.out.println(entry.getValue() + " day(s) at " + entry.getKey().getResortName());
-                }
-            }
 
             //generate user interface
             int selection = mainUserInterface();
@@ -44,8 +45,11 @@ public class App {
                     resortSelectionInterface();
                     break;
                 case 2:
+                    user.displayResortPlans();
                     break;
                 case 3:
+                    break;
+                case 4:
                     System.exit(0);
 
             }
@@ -54,16 +58,15 @@ public class App {
 
     public static int mainUserInterface() {
         Scanner userInput = new Scanner(System.in);
-        System.out.println("Welcome to the Epic Pass purchase calculator!");
-        System.out.println("_____________________________________________");
-        System.out.println();
 
         while (true) {
 
+            System.out.println();
             System.out.println("Please select one of the following options:");
             System.out.println("1. Select resorts and days");
-            System.out.println("2. Calculate pass options");
-            System.out.println("3. Quit");
+            System.out.println("2. Display current resort selection");
+            System.out.println("3. Calculate pass options");
+            System.out.println("4. Quit");
             System.out.print("Your selection: ");
             try {
                 int selection = userInput.nextInt();
@@ -78,53 +81,77 @@ public class App {
 
     public static void resortSelectionInterface() {
         Scanner userInput = new Scanner(System.in);
-
-        System.out.println("Select resort region:");
-        for (int i = 1; i <= regionList.size(); i++) {
-            System.out.println(i + ". " + regionList.get(i-1).getRegionName());
-        }
-
         int selection;
         while (true) {
-            try {
-                selection = userInput.nextInt();
-                if (selection > 0 && selection <= regionList.size()){
-                    break;
+            while (true) {
+
+                System.out.println();
+                System.out.println("Please select one of the following options:");
+                System.out.println("1. Add or change resorts and days");
+                System.out.println("2. Delete resort from plans");
+                System.out.println("3. Return to main menu");
+                System.out.print("Your selection: ");
+                try {
+                    selection = userInput.nextInt();
+                    if (selection > 0 && selection < 4) break;
+                } catch (Exception e) {
+
                 }
-            } catch (Exception e) {
-
+                System.out.println("That was not a valid option. Please try again");
             }
-            System.out.println("Invalid input. Please try again.");
-        }
-        Region selectedRegion = regionList.get(selection - 1);
-        System.out.println("Select resort:");
 
-        int count = 1;
-        List<Resort> regionalList = new ArrayList<>();
-        for (Resort resort: resortList) {
-            if (resort.getRegion() == selectedRegion) {
-                System.out.println(count + ". " + resort.getResortName());
-                regionalList.add(resort);
-                count++;
+            switch (selection) {
+                case 1:
+                    addOrChange();
+                    break;
+                case 2:
+                    deleteResort();
+                    break;
+                case 3:
+                    return;
             }
         }
+
+    }
+
+    public static void addOrChange() {
+        Scanner userInput = new Scanner(System.in);
+
+        int numOfDays = 0;
+
+        Resort resort = Resort.selectResort(regionList);
+        if (resort == null) return;
 
         while (true) {
+            System.out.println("How many days will you spend at " + resort.getResortName() + "?");
+
             try {
-                selection = userInput.nextInt();
-                if (selection > 0 && selection < regionalList.size()){
-                    break;
-                }
+                numOfDays = userInput.nextInt();
+                break;
             } catch (Exception e) {
 
             }
-            System.out.println("Invalid input. Please try again.");
+            System.out.println("That was not a valid option. Please try again");
         }
 
-        Resort selectedResort = regionalList.get(selection - 1);
+        user.addOrUpdateResortPlans(resort, numOfDays);
 
-        user.addResortToResortPlans(selectedResort, 1);
+    }
 
+    public static void deleteResort() {
+        user.displayResortPlans();
+        List<Region> planRegionList = new ArrayList<>();
+        for (Map.Entry<Resort, Integer> plan : user.getResortPlans().entrySet()) {
+            if (planRegionList.contains(plan.getKey().getRegion())) {
+                continue;
+            } else {
+                planRegionList.add(plan.getKey().getRegion());
+            }
+        }
+        Resort resort = Resort.selectResort(planRegionList);
+        if (resort == null) return;
+
+        user.deleteResortPlans(resort);
     }
 
     public static void parseResortList() {
@@ -141,7 +168,7 @@ public class App {
                 } else {
                     String resortName = currentLine;
                     Resort newResort = new Resort(resortName, region);
-                    resortList.add(newResort);
+                    region.addResortToRegion(newResort);
                 }
 
             }

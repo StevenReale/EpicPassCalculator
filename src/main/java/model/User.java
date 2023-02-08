@@ -16,17 +16,21 @@ public class User {
         return resortPlans;
     }
 
-    public void addResortToResortPlans(Resort newResort, int numOfDays) {
-         resortPlans.put(newResort, numOfDays);
+    public void addOrUpdateResortPlans(Resort newResort, int numOfDays) {
+        resortPlans.put(newResort, numOfDays);
     }
 
-    public void updateDaysAtResort(Resort resort, int newNumOfDays) {
-        resortPlans.put(resort, newNumOfDays);
-    }
-
-    public void deleteResort(Resort resort) {
+    public void deleteResortPlans(Resort resort) {
         if (resortPlans.containsKey(resort)) {
             resortPlans.remove(resort);
+        }
+    }
+
+    public void displayResortPlans() {
+        System.out.println();
+        System.out.println("You have selected:");
+        for (Map.Entry<Resort, Integer> entry : this.getResortPlans().entrySet()) {
+            System.out.println(entry.getValue() + " day(s) at " + entry.getKey().getResortName());
         }
     }
 }

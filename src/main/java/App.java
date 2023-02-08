@@ -1,7 +1,6 @@
 import model.Region;
 import model.Resort;
 import model.User;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -161,7 +160,7 @@ public class App {
     }
 
     public static void parseResortList() {
-        File resortFile = new File("src/main/resources/resort-list");
+        File resortFile = new File("src/main/resources/resort-list.data");
         try (Scanner fileReader = new Scanner(resortFile)) {
             Region region = null;
             while (fileReader.hasNextLine()) {

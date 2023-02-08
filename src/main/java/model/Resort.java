@@ -1,8 +1,6 @@
 package model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +22,7 @@ public class Resort {
         return region;
     }
 
-    public static Resort selectResort(List<Region> regionList) {
+    public static Resort selectResort(List<Region> regionList, List<Resort> resortList) {
         Scanner userInput = new Scanner(System.in);
 
         System.out.println();
@@ -64,7 +62,9 @@ public class Resort {
         int count = 1;
 
         for (Resort resort: selectedRegion.getResortsInRegion()) {
-            System.out.println(count + ". " + resort.getResortName());
+            if (resortList.contains(resort)) {
+                System.out.println(count + ". " + resort.getResortName());
+            }
             count++;
         }
         System.out.println("or select " + count + " to cancel.");

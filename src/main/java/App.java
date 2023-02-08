@@ -70,7 +70,7 @@ public class App {
             System.out.print("Your selection: ");
             try {
                 int selection = userInput.nextInt();
-                if (selection > 0 && selection < 4) return selection;
+                if (selection > 0 && selection <= 4) return selection;
             } catch (Exception e) {
 
             }
@@ -119,7 +119,7 @@ public class App {
 
         int numOfDays = 0;
 
-        Resort resort = Resort.selectResort(regionList);
+        Resort resort = Resort.selectResort(regionList, resortList);
         if (resort == null) return;
 
         while (true) {
@@ -141,16 +141,22 @@ public class App {
     public static void deleteResort() {
         user.displayResortPlans();
         List<Region> planRegionList = new ArrayList<>();
+        List<Resort> planResortList = new ArrayList<>();
         for (Map.Entry<Resort, Integer> plan : user.getResortPlans().entrySet()) {
             if (planRegionList.contains(plan.getKey().getRegion())) {
-                continue;
+                planResortList.add(plan.getKey());
             } else {
                 planRegionList.add(plan.getKey().getRegion());
+                planResortList.add(plan.getKey());
             }
         }
-        Resort resort = Resort.selectResort(planRegionList);
-        if (resort == null) return;
+        Resort resort = Resort.selectResort(planRegionList, planResortList);
+        if (resort == null) {
+            System.out.println("No deletion has occurred.");
+            return;
+        }
 
+        System.out.println("Deleting " + resort.getResortName() + " from travel plans.");
         user.deleteResortPlans(resort);
     }
 
@@ -169,6 +175,7 @@ public class App {
                     String resortName = currentLine;
                     Resort newResort = new Resort(resortName, region);
                     region.addResortToRegion(newResort);
+                    resortList.add(newResort);
                 }
 
             }

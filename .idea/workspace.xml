@@ -63,7 +63,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/App.java</url>
-          <line>81</line>
+          <line>73</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

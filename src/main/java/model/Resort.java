@@ -29,7 +29,7 @@ public class Resort {
         System.out.println("Select resort region:");
         for (int i = 1; i <= regionList.size() + 1; i++) {
             if (i == regionList.size() + 1) {
-                System.out.println("or select " + i + " to cancel.");
+                System.out.println(i + ". Cancel and return to previous menu.");
             } else {
                 System.out.println(i + ". " + regionList.get(i - 1).getRegionName());
             }
@@ -67,7 +67,7 @@ public class Resort {
             }
             count++;
         }
-        System.out.println("or select " + count + " to cancel.");
+        System.out.println(count + ". Cancel and return to previous menu.");
 
         while (true) {
             try {

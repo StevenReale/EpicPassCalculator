@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class User {
@@ -26,11 +28,19 @@ public class User {
         }
     }
 
-    public void displayResortPlans() {
+    public List<Resort> displayResortPlans() {
+        List<Resort> planList = new ArrayList<>();
+
         System.out.println();
         System.out.println("You have selected:");
+
+        int count = 1;
         for (Map.Entry<Resort, Integer> entry : this.getResortPlans().entrySet()) {
-            System.out.println(entry.getValue() + " day(s) at " + entry.getKey().getResortName());
+            Resort currentResort = entry.getKey();
+            System.out.println(count + ". " + entry.getValue() + " day(s) at " + currentResort.getResortName());
+            planList.add(currentResort);
+            count++;
         }
+        return planList;
     }
 }

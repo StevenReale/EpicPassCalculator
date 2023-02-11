@@ -92,25 +92,21 @@ public class EpicPassCalculator {
     }
 
     private void deleteResort() {
-        user.displayResortPlans();
-        List<Region> planRegionList = new ArrayList<>();
-        List<Resort> planResortList = new ArrayList<>();
-        for (Map.Entry<Resort, Integer> plan : user.getResortPlans().entrySet()) {
-            if (planRegionList.contains(plan.getKey().getRegion())) {
-                planResortList.add(plan.getKey());
-            } else {
-                planRegionList.add(plan.getKey().getRegion());
-                planResortList.add(plan.getKey());
-            }
-        }
-        Resort resort = selectResort(planRegionList, planResortList);
-        if (resort == null) {
+
+        List<Resort> planResortList = user.displayResortPlans();
+        System.out.println(planResortList.size()+1 + ". Cancel and return to previous menu");
+        System.out.print("Which plans would you like to delete? ");
+
+        int selection = view.promptForInteger(planResortList.size() + 1);
+
+        if (selection == planResortList.size() + 1) {
             System.out.println("No deletion has occurred.");
             return;
         }
 
-        System.out.println("Deleting " + resort.getResortName() + " from travel plans.");
-        user.deleteResortPlans(resort);
+        Resort resortToDelete = planResortList.get(selection - 1);
+        System.out.println("Deleting " + resortToDelete.getResortName() + " from travel plans.");
+        user.deleteResortPlans(resortToDelete);
     }
 
     private void parseResortList() {

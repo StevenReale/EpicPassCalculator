@@ -14,6 +14,7 @@ public class EpicPassCalculator {
     private List<Resort> resortList;
     private List<Region> regionList;
     private User user;
+    private View view;
 
     public EpicPassCalculator() {
 
@@ -22,13 +23,15 @@ public class EpicPassCalculator {
         parseResortList();
 
         user = new User("Steve");
+
+        view = new View();
     }
 
     public void run() {
 
-        View.greet();
+        view.greet();
 
-        while(true) {
+        while (true) {
 
             //generate user interface
             int selection = mainUserInterface();
@@ -51,38 +54,16 @@ public class EpicPassCalculator {
     }
 
     private int mainUserInterface() {
-        Scanner userInput = new Scanner(System.in);
 
-        while (true) {
-
-            View.mainMenu();
-
-            try {
-                int selection = userInput.nextInt();
-                if (selection > 0 && selection <= 4) return selection;
-            } catch (Exception e) {
-
-            }
-            System.out.println("That was not a valid option. Please try again");
-        }
+        view.mainMenu();
+        return view.promptForInteger(4);
 
     }
 
     private void resortSelectionInterface() {
-        Scanner userInput = new Scanner(System.in);
-        int selection;
         while (true) {
-            while (true) {
-
-                View.resortPlanningMenu();
-                try {
-                    selection = userInput.nextInt();
-                    if (selection > 0 && selection < 5) break;
-                } catch (Exception e) {
-
-                }
-                System.out.println("That was not a valid option. Please try again");
-            }
+            view.resortPlanningMenu();
+            int selection = view.promptForInteger(5);
 
             switch (selection) {
                 case 1:
@@ -98,31 +79,16 @@ public class EpicPassCalculator {
                     return;
             }
         }
-
     }
 
     private void addOrChange() {
-        Scanner userInput = new Scanner(System.in);
-
-        int numOfDays = 0;
-
-        Resort resort = Resort.selectResort(regionList, resortList);
+        Resort resort = selectResort(regionList, resortList);
         if (resort == null) return;
 
-        while (true) {
-            System.out.println("How many days will you spend at " + resort.getResortName() + "?");
-
-            try {
-                numOfDays = userInput.nextInt();
-                break;
-            } catch (Exception e) {
-
-            }
-            System.out.println("That was not a valid option. Please try again");
-        }
+        System.out.println("How many days will you spend at " + resort.getResortName() + "?");
+        int numOfDays = view.promptForInteger();
 
         user.addOrUpdateResortPlans(resort, numOfDays);
-
     }
 
     private void deleteResort() {
@@ -137,7 +103,7 @@ public class EpicPassCalculator {
                 planResortList.add(plan.getKey());
             }
         }
-        Resort resort = Resort.selectResort(planRegionList, planResortList);
+        Resort resort = selectResort(planRegionList, planResortList);
         if (resort == null) {
             System.out.println("No deletion has occurred.");
             return;
@@ -147,14 +113,14 @@ public class EpicPassCalculator {
         user.deleteResortPlans(resort);
     }
 
-   private void parseResortList() {
+    private void parseResortList() {
         File resortFile = new File("src/main/resources/resort-list.data");
         try (Scanner fileReader = new Scanner(resortFile)) {
             Region region = null;
             while (fileReader.hasNextLine()) {
                 String currentLine = fileReader.nextLine();
 
-                if (currentLine.charAt(0)=='*') {
+                if (currentLine.charAt(0) == '*') {
                     String regionName = currentLine.substring(1, currentLine.length() - 1);
                     region = new Region(regionName);
                     regionList.add(region);
@@ -173,6 +139,53 @@ public class EpicPassCalculator {
             System.exit(1);
         }
 
+    }
+
+    public Resort selectResort(List<Region> regionList, List<Resort> resortList) {
+        Scanner userInput = new Scanner(System.in);
+
+        System.out.println();
+        System.out.println("Select resort region:");
+        for (int i = 1; i <= regionList.size() + 1; i++) {
+            if (i == regionList.size() + 1) {
+                System.out.println(i + ". Cancel and return to previous menu.");
+            } else {
+                System.out.println(i + ". " + regionList.get(i - 1).getRegionName());
+            }
+        }
+
+        int selection = view.promptForInteger(regionList.size());
+
+        if (selection == regionList.size() + 1) {
+            Resort resort = null;
+            return resort;
+        }
+
+        Region selectedRegion = regionList.get(selection - 1);
+
+        System.out.println();
+        System.out.println("Select resort:");
+
+        int count = 1;
+
+        for (Resort resort: selectedRegion.getResortsInRegion()) {
+            if (resortList.contains(resort)) {
+                System.out.println(count + ". " + resort.getResortName());
+            }
+            count++;
+        }
+        System.out.println(count + ". Cancel and return to previous menu.");
+
+        selection = view.promptForInteger(count);
+
+        if (selection == count) {
+            Resort resort = null;
+            return resort;
+        }
+
+        Resort selectedResort = selectedRegion.getResortsInRegion().get(selection - 1);
+
+        return selectedResort;
     }
 
 }

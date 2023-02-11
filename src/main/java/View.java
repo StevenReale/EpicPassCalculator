@@ -1,15 +1,43 @@
+import java.util.Scanner;
+
 public class View {
+
+    Scanner userInput;
+
+    public View() {
+        userInput = new Scanner(System.in);
+    }
+
+    /*
+    Prompt for input methods
+     */
+
+    public int promptForInteger() {
+        return promptForInteger(Integer.MAX_VALUE);
+    }
+    public int promptForInteger(int max) {
+
+        while(true) {
+            try {
+                int selection = userInput.nextInt();
+                if (selection > 0 && selection <= max) return selection;
+            } catch (Exception e) {
+
+            }
+            System.out.println("That was not a valid option. Please enter an integer from " + 1 + " to " + max + ".");
+        }
+    }
 
     /*
     UI Display Methods
      */
-    public static void greet() {
+    public void greet() {
         System.out.println("Welcome to the Epic Pass purchase calculator!");
         System.out.println("_____________________________________________");
         System.out.println();
     }
 
-    public static void mainMenu() {
+    public void mainMenu() {
         System.out.println();
         System.out.println("Please select one of the following options:");
         System.out.println("1. Select resorts and days");
@@ -19,7 +47,7 @@ public class View {
         System.out.print("Your selection: ");
     }
 
-    public static void resortPlanningMenu() {
+    public void resortPlanningMenu() {
         System.out.println();
         System.out.println("Please select one of the following options:");
         System.out.println("1. Add or change resorts and days");

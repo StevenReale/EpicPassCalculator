@@ -1,6 +1,6 @@
 # EpicPassCalculator
 
-Selects the best combination of Epic Pass products for skiers and riders based on their intended travel plans for the season.
+Selects the best combination of [Epic Pass products](https://www.epicpass.com/) for skiers and riders based on their intended travel plans for the season.
 
 ## Functionality roadmap
 

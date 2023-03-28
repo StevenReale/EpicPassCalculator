@@ -1,16 +1,20 @@
 package model;
 
+import dao.JdbcResortDao;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Region {
-    private String regionName;
 
+    private int regionId;
+    private String regionName;
     private List<Resort> resortsInRegion;
 
-    public Region(String regionName) {
+    public Region(int regionId, String regionName, List<Resort> resortsInRegion) {
+        this.regionId = regionId;
         this.regionName = regionName;
-        resortsInRegion = new ArrayList<>();
+        this.resortsInRegion = resortsInRegion;
     }
 
     public String getRegionName() {
@@ -18,7 +22,7 @@ public class Region {
     }
 
     public List<Resort> getResortsInRegion() {
-        return resortsInRegion;
+        return this.resortsInRegion;
     }
 
     public void addResortToRegion(Resort resort) {

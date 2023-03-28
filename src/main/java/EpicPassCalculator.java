@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class EpicPassCalculator {
@@ -20,7 +19,7 @@ public class EpicPassCalculator {
 
         resortList = new ArrayList<>();
         regionList = new ArrayList<>();
-        parseResortList();
+        //parseResortList();
 
         user = new User("Steve");
 
@@ -109,34 +108,34 @@ public class EpicPassCalculator {
         user.deleteResortPlans(resortToDelete);
     }
 
-    private void parseResortList() {
-        File resortFile = new File("src/main/resources/resort-list.data");
-        try (Scanner fileReader = new Scanner(resortFile)) {
-            Region region = null;
-            while (fileReader.hasNextLine()) {
-                String currentLine = fileReader.nextLine();
-
-                if (currentLine.charAt(0) == '*') {
-                    String regionName = currentLine.substring(1, currentLine.length() - 1);
-                    region = new Region(regionName);
-                    regionList.add(region);
-                } else {
-                    String resortName = currentLine;
-                    Resort newResort = new Resort(resortName, region);
-                    region.addResortToRegion(newResort);
-                    resortList.add(newResort);
-                }
-
-            }
-
-        } catch (FileNotFoundException e) {
-            System.err.println("Could not find file " + resortFile.getAbsolutePath());
-            System.err.println("Exiting program");
-            System.exit(1);
-        }
-
-    }
-
+//    private void parseResortList() {
+//        File resortFile = new File("src/main/resources/resort-list.data");
+//        try (Scanner fileReader = new Scanner(resortFile)) {
+//            Region region = null;
+//            while (fileReader.hasNextLine()) {
+//                String currentLine = fileReader.nextLine();
+//
+//                if (currentLine.charAt(0) == '*') {
+//                    String regionName = currentLine.substring(1, currentLine.length() - 1);
+//                    region = new Region(regionName);
+//                    regionList.add(region);
+//                } else {
+//                    String resortName = currentLine;
+//                    Resort newResort = new Resort(resortName, region);
+//                    region.addResortToRegion(newResort);
+//                    resortList.add(newResort);
+//                }
+//
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            System.err.println("Could not find file " + resortFile.getAbsolutePath());
+//            System.err.println("Exiting program");
+//            System.exit(1);
+//        }
+//
+//    }
+//
     public Resort selectResort(List<Region> regionList, List<Resort> resortList) {
         Scanner userInput = new Scanner(System.in);
 

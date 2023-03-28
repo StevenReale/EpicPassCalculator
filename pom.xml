@@ -6,7 +6,20 @@
 
     <groupId>org.example</groupId>
     <artifactId>epic-pass-calculator</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.9</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

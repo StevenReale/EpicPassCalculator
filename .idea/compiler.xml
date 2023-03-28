@@ -7,8 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="epic-pass-calculator" />
-        <module name="epic-pass" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring" target="11" />
+      <module name="Spring" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

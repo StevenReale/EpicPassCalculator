@@ -1,5 +1,6 @@
 package dao;
 
+import model.Pass;
 import model.Resort;
 
 import java.util.List;
@@ -25,5 +26,10 @@ public interface ResortDao {
      * Adds new resort to the datastore
      **/
     Resort createResort(Resort resort);
+
+    /**
+     * Adds access to a resort in the resort_pass table
+     */
+    void addPassAccess(Pass pass, Resort resort, int daysOfAccess, boolean validHolidays, boolean validSundays, boolean validSaturdays);
 
 }

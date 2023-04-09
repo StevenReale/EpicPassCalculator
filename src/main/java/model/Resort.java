@@ -26,8 +26,8 @@ public class Resort {
         this.resortName = resortName;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setRegion(int regionId) {
+        this.regionId = regionId;
     }
 
     public int getTier() {
@@ -42,7 +42,7 @@ public class Resort {
         return resortName;
     }
 
-    public String getRegion() {
-        return region;
+    public int getRegionId() {
+        return regionId;
     }
 }

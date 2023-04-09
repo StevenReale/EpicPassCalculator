@@ -1,5 +1,6 @@
 package dao;
 
+import model.Pass;
 import model.Resort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -32,7 +33,7 @@ public class JdbcResortDao implements ResortDao {
     @Override
     public List<Resort> getAllResorts() {
         List<Resort> resorts = new ArrayList<>();
-        String sql = "SELECT resort.name, resort.tier, region.region_id FROM resort\n" +
+        String sql = "SELECT resort.resort_id, resort.name, resort.tier, region.region_id FROM resort\n" +
                 "JOIN region on resort.region_id = region.region_id";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
         while (result.next()) {
@@ -57,6 +58,14 @@ public class JdbcResortDao implements ResortDao {
     @Override
     public Resort createResort(Resort resort) {
         return null;
+    }
+
+    @Override
+    public void addPassAccess(Pass pass, Resort resort, int daysOfAccess, boolean validHolidays, boolean validSundays, boolean validSaturdays) {
+        String sql = "INSERT INTO resort_pass (pass_id, resort_id, days_of_access, valid_holidays, valid_sundays, valid_saturdays)\n" +
+                "VALUES(?, ?, ?, ?, ?, ?);";
+        jdbcTemplate.update(sql, pass.getPassId(), resort.getResortId(), daysOfAccess, validHolidays, validSundays, validSaturdays);
+
     }
 
     private Resort mapRowToResort(SqlRowSet result) {

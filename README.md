@@ -9,9 +9,13 @@ Selects the best combination of [Epic Pass products](https://www.epicpass.com/) 
 2. Build functionality to import resort information from file
 3. Build an object to house user travel plans
 4. Build a command-line interface to allow user to build travel plans
+5. Build an object to house pass information
+
+### Current development
+6. Building PostgreSQL database housing pass, resort, and region information.
+7. Implementing Spring Boot JDBC interface with database.
 
 ### Future steps
-5. Build an object to house pass information
-6. Build functionality to import pass information from file
-7. Build logic to calculate best combination of passes for user's travel plans
-8. Build a web interface to house app
+
+8. Build logic to calculate best combination of passes for user's travel plans
+9. Build a web interface to house app

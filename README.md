@@ -5,18 +5,21 @@ Selects the best combination of [Epic Pass products](https://www.epicpass.com/) 
 ## Functionality roadmap
 
 ### Completed
-1. Build a command-line interface to store user's travel plans (currently broken while database connectivity in development)
+1. Build a command-line interface to store user's travel plans
 2. Build objects to store information on resorts and resort regions
 3. Build functionality to import resort information from file
 4. Build an object to house user travel plans
 5. Build an object to house pass information
+6. Built PostgreSQL database housing all pass data
+7. Spring Boot JDBC interface implemented
 
 ### Current development
-6. Building PostgreSQL database housing pass, resort, and region information.
-7. Implementing Spring Boot JDBC interface with database.
+1. Unit testing
+2. Integration testing
 
 ### Future steps
 
-8. Rebuild command-line interface to incorporate database connectivity
-9. Build logic to calculate best combination of passes for user's travel plans
-10. Build a web interface to house app
+1. Further develop command-line interface to account for various pass options
+2. Further Spring Boot JDBC interface implementation
+2. Build logic to calculate best combination of passes for user's travel plans
+3. Build a web interface to house app

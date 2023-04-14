@@ -45,14 +45,26 @@ public class JdbcResortDao implements ResortDao {
     @Override
     public List<Resort> getResortsByRegionId(int regionId) {
         List<Resort> resortsInRegion = new ArrayList<>();
-        String sql = "SELECT resort.name, resort.tier, region.region_id FROM resort\n" +
-                "JOIN region on resort.region_id = region.region_id " +
-                "WHERE region_id = ?;";
+        String sql = "SELECT resort.resort_id, resort.name, resort.tier, region.region_id FROM resort\n" +
+                "JOIN region ON resort.region_id = region.region_id " +
+                "WHERE region.region_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, regionId);
         while (result.next()) {
             resortsInRegion.add(mapRowToResort(result));
         }
         return resortsInRegion;
+    }
+
+    @Override
+    public List<Resort> getResortsByTier(int tierId) {
+        List<Resort> resortsInTier = new ArrayList<>();
+        String sql = "SELECT * FROM resort\n" +
+                "WHERE tier = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, tierId);
+        while (result.next()) {
+            resortsInTier.add(mapRowToResort(result));
+        }
+        return resortsInTier;
     }
 
     @Override

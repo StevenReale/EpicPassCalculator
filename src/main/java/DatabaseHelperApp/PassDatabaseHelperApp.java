@@ -25,11 +25,18 @@ public class PassDatabaseHelperApp {
         PassDao passDao = new JdbcPassDao(dataSource);
 
         List<Resort> allResorts = resortDao.getAllResorts();
-        Pass passtoPopulate = passDao.getPassById(3);
+        List<Resort> resortsInTier2 = resortDao.getResortsByTier(2);
+        List<Resort> resortsInTier3 = resortDao.getResortsByTier(3);
+        Pass passtoPopulate = passDao.getPassById(1);
 
         for (Resort resort: allResorts) {
+            try {
             System.out.println("Inserting " + resort.getResortName() + " into " + passtoPopulate.getPassName());
-            resortDao.addPassAccess(passtoPopulate, resort, 1, false, true, true);
+            resortDao.addPassAccess(passtoPopulate, resort, 999, true, true, true);
+            } catch (Exception e) {
+                System.out.println("Could not insert record. ");
+            }
+
         }
 
 

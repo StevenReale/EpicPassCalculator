@@ -1,28 +1,31 @@
+import dao.JdbcRegionDao;
+import dao.JdbcResortDao;
 import model.Region;
 import model.Resort;
 import model.User;
+import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class EpicPassCalculator {
 
-    private List<Resort> resortList;
-    private List<Region> regionList;
+    private BasicDataSource dataSource;
+    private JdbcRegionDao jdbcRegionDao;
+    private JdbcResortDao jdbcResortDao;
     private User user;
     private View view;
 
     public EpicPassCalculator() {
 
-        resortList = new ArrayList<>();
-        regionList = new ArrayList<>();
-        //parseResortList();
+        dataSource = new BasicDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/EpicPassDB");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres1");
+        jdbcRegionDao = new JdbcRegionDao(dataSource);
+        jdbcResortDao = new JdbcResortDao(dataSource);
 
         user = new User("Steve");
-
         view = new View();
     }
 
@@ -33,7 +36,7 @@ public class EpicPassCalculator {
         while (true) {
 
             //generate user interface
-            int selection = mainUserInterface();
+            int selection = view.mainMenu();
             switch (selection) {
                 case 1:
                     resortSelectionInterface();
@@ -52,17 +55,11 @@ public class EpicPassCalculator {
         }
     }
 
-    private int mainUserInterface() {
-
-        view.mainMenu();
-        return view.promptForInteger(4);
-
-    }
 
     private void resortSelectionInterface() {
         while (true) {
-            view.resortPlanningMenu();
-            int selection = view.promptForInteger(5);
+
+            int selection = view.resortPlanningMenu();
 
             switch (selection) {
                 case 1:
@@ -81,7 +78,7 @@ public class EpicPassCalculator {
     }
 
     private void addOrChange() {
-        Resort resort = selectResort(regionList, resortList);
+        Resort resort = selectResort();
         if (resort == null) return;
 
         System.out.println("How many days will you spend at " + resort.getResortName() + "?");
@@ -108,65 +105,38 @@ public class EpicPassCalculator {
         user.deleteResortPlans(resortToDelete);
     }
 
-//    private void parseResortList() {
-//        File resortFile = new File("src/main/resources/resort-list.data");
-//        try (Scanner fileReader = new Scanner(resortFile)) {
-//            Region region = null;
-//            while (fileReader.hasNextLine()) {
-//                String currentLine = fileReader.nextLine();
-//
-//                if (currentLine.charAt(0) == '*') {
-//                    String regionName = currentLine.substring(1, currentLine.length() - 1);
-//                    region = new Region(regionName);
-//                    regionList.add(region);
-//                } else {
-//                    String resortName = currentLine;
-//                    Resort newResort = new Resort(resortName, region);
-//                    region.addResortToRegion(newResort);
-//                    resortList.add(newResort);
-//                }
-//
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            System.err.println("Could not find file " + resortFile.getAbsolutePath());
-//            System.err.println("Exiting program");
-//            System.exit(1);
-//        }
-//
-//    }
-//
-    public Resort selectResort(List<Region> regionList, List<Resort> resortList) {
+    public Resort selectResort() {
         Scanner userInput = new Scanner(System.in);
 
         System.out.println();
+        List<Region> regions = jdbcRegionDao.getAllRegions();
         System.out.println("Select resort region:");
-        for (int i = 1; i <= regionList.size() + 1; i++) {
-            if (i == regionList.size() + 1) {
+        for (int i = 1; i <= regions.size() + 1; i++) {
+            if (i == regions.size() + 1) {
                 System.out.println(i + ". Cancel and return to previous menu.");
             } else {
-                System.out.println(i + ". " + regionList.get(i - 1).getRegionName());
+                System.out.println(i + ". " + regions.get(i - 1).getRegionName());
             }
         }
 
-        int selection = view.promptForInteger(regionList.size());
+        int selection = view.promptForInteger(regions.size());
 
-        if (selection == regionList.size() + 1) {
+        if (selection == regions.size() + 1) {
             Resort resort = null;
             return resort;
         }
 
-        Region selectedRegion = regionList.get(selection - 1);
+        Region selectedRegion = regions.get(selection - 1);
 
         System.out.println();
         System.out.println("Select resort:");
 
         int count = 1;
 
-        for (Resort resort: selectedRegion.getResortsInRegion()) {
-            if (resortList.contains(resort)) {
-                System.out.println(count + ". " + resort.getResortName());
-            }
+        List<Resort> resortsInRegion = jdbcResortDao.getResortsByRegionId(selectedRegion.getRegionId());
+        for (Resort resort: resortsInRegion) {
+
+            System.out.println(count + ". " + resort.getResortName());
             count++;
         }
         System.out.println(count + ". Cancel and return to previous menu.");
@@ -178,7 +148,7 @@ public class EpicPassCalculator {
             return resort;
         }
 
-        Resort selectedResort = selectedRegion.getResortsInRegion().get(selection - 1);
+        Resort selectedResort = resortsInRegion.get(selection - 1);
 
         return selectedResort;
     }

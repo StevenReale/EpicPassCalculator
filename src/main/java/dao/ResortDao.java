@@ -23,6 +23,11 @@ public interface ResortDao {
     List<Resort> getResortsByRegionId(int regionId);
 
     /**
+     * Gets a list of resorts by access tier
+     */
+    List<Resort> getResortsByTier( int tierId);
+
+    /**
      * Adds new resort to the datastore
      **/
     Resort createResort(Resort resort);

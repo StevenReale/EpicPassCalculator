@@ -29,7 +29,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../pair-programming/mod2-week6-pair-5/exercise/README.md" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../forked-from-others/ttrpg-inventory-manager/inventory-manager" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.545977" />
@@ -40,7 +40,7 @@
       <recent name="dao" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PassDatabaseHelperApp">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="App" />
       <module name="epic-pass" />
@@ -70,8 +70,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PassDatabaseHelperApp" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.PassDatabaseHelperApp" />
         <item itemvalue="Application.EpicPassCalculator" />
       </list>
     </recent_temporary>
@@ -92,7 +92,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/EpicPassCalculator.java</url>
-          <line>71</line>
+          <line>68</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

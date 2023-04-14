@@ -11,10 +11,14 @@ public class Region {
     private String regionName;
     private List<Resort> resortsInRegion;
 
-    public Region(int regionId, String regionName, List<Resort> resortsInRegion) {
+    public Region(int regionId, String regionName) { //}, List<Resort> resortsInRegion) {
         this.regionId = regionId;
         this.regionName = regionName;
-        this.resortsInRegion = resortsInRegion;
+        //this.resortsInRegion = resortsInRegion;
+    }
+
+    public int getRegionId() {
+        return regionId;
     }
 
     public String getRegionName() {

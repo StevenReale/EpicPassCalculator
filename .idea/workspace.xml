@@ -29,7 +29,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../forked-from-others/ttrpg-inventory-manager/inventory-manager" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.545977" />
@@ -38,6 +38,10 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dao" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Student\workspace\side-projects\epic-pass\src\main\resources" />
+      <recent name="C:\Users\Student\workspace\side-projects\epic-pass\src\main" />
     </key>
   </component>
   <component name="RunManager" selected="Application.App">
@@ -92,7 +96,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/EpicPassCalculator.java</url>
-          <line>68</line>
+          <line>77</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

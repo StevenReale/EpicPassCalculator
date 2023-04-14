@@ -4,13 +4,20 @@ import model.Region;
 import model.Resort;
 import model.User;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 public class EpicPassCalculator {
 
-    private BasicDataSource dataSource;
+    private DataSource dataSource;
     private JdbcRegionDao jdbcRegionDao;
     private JdbcResortDao jdbcResortDao;
     private User user;
@@ -18,10 +25,13 @@ public class EpicPassCalculator {
 
     public EpicPassCalculator() {
 
-        dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/EpicPassDB");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("postgres1");
+        try {
+            dataSource = setupDataSource();
+        } catch (SQLException e) {
+            System.out.println("Could not establish database connectivity");
+            System.exit(-1);
+        }
+
         jdbcRegionDao = new JdbcRegionDao(dataSource);
         jdbcResortDao = new JdbcResortDao(dataSource);
 
@@ -153,6 +163,28 @@ public class EpicPassCalculator {
         return selectedResort;
     }
 
+    private DataSource setupDataSource() throws SQLException {
+
+        // Drop and then recreate the application database under separate "admin" connection
+        SingleConnectionDataSource adminDataSource = new SingleConnectionDataSource();
+        adminDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+        adminDataSource.setUsername("postgres");
+        adminDataSource.setPassword("postgres1");
+        JdbcTemplate adminJdbcTemplate = new JdbcTemplate(adminDataSource);
+        adminJdbcTemplate.update("DROP DATABASE IF EXISTS \"EpicPassDB\";");
+        adminJdbcTemplate.update("CREATE DATABASE \"EpicPassDB\";");
+
+        // Setup up the application connection
+        SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/EpicPassDB");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres1");
+
+        //  Refresh the application database by running the setup script
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), new FileSystemResource("src/main/resources/epic-pass.sql"));
+
+        return dataSource;
+    }
 }
 /*
 Class for:

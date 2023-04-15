@@ -28,19 +28,4 @@ public class User {
         }
     }
 
-    public List<Resort> displayResortPlans() {
-        List<Resort> planList = new ArrayList<>();
-
-        System.out.println();
-        System.out.println("You have selected:");
-
-        int count = 1;
-        for (Map.Entry<Resort, Integer> entry : this.getResortPlans().entrySet()) {
-            Resort currentResort = entry.getKey();
-            System.out.println(count + ". " + entry.getValue() + " day(s) at " + currentResort.getResortName());
-            planList.add(currentResort);
-            count++;
-        }
-        return planList;
-    }
 }

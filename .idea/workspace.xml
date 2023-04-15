@@ -29,7 +29,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../steven-reale-student-code/java/module-2/week-8/01_Securing_APIs/tutorial/README.md" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.545977" />
@@ -41,12 +41,13 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Student\workspace\side-projects\epic-pass\src\main\resources" />
+      <recent name="C:\Users\Student\workspace\side-projects\epic-pass\resources" />
       <recent name="C:\Users\Student\workspace\side-projects\epic-pass\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="App" />
+  <component name="RunManager" selected="Application.EpicPassCalculator">
+    <configuration name="AppInterface" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AppInterface" />
       <module name="epic-pass" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -72,11 +73,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in epic-pass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="epic-pass" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="epic-pass" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="model" />
+      <option name="MAIN_CLASS_NAME" value="model.UserTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.PassDatabaseHelperApp" />
         <item itemvalue="Application.EpicPassCalculator" />
+        <item itemvalue="JUnit.All in epic-pass" />
+        <item itemvalue="JUnit.UserTests" />
+        <item itemvalue="Application.PassDatabaseHelperApp" />
+        <item itemvalue="Application.AppInterface" />
       </list>
     </recent_temporary>
   </component>
@@ -90,16 +116,5 @@
       <updated>1675793405567</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/EpicPassCalculator.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

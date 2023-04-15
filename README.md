@@ -1,4 +1,4 @@
-# AppInterface
+# Epic Pass Calculator
 
 A Java app using Spring Boot for JDBC to a PostgreSQL database. Calculates the best combination of [Epic Pass products](https://www.epicpass.com/) for skiers and riders based on their intended travel plans for the season.
 

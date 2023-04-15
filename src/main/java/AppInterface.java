@@ -24,7 +24,7 @@ public class AppInterface {
         }
 
         user = new User("Steve");
-        view = new View(user);
+        view = new View(user, dataSource);
         controller = new AppController(dataSource, user, view);
 
     }

@@ -13,6 +13,7 @@ A Java app using Spring Boot for JDBC to a PostgreSQL database. Calculates the b
 6. Built PostgreSQL database housing all pass data
 7. Spring Boot JDBC interface implemented
 
+
 ### Current development
 1. Unit testing
 2. Integration testing
@@ -25,4 +26,7 @@ A Java app using Spring Boot for JDBC to a PostgreSQL database. Calculates the b
 4. Build a web interface to house app
 
 ### Known bugs
-1. Overwriting new resort plans does not eliminate first
+
+### Bugs fixed
+1. Attempting to change existing resort plans instead created second resort plan.
+2. promptForInteger() method did not correctly handle non-integer values.

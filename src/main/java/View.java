@@ -1,6 +1,8 @@
+import dao.JdbcResortDao;
 import model.Resort;
 import model.User;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +12,13 @@ public class View {
 
     Scanner userInput;
     User user;
+    JdbcResortDao jdbcResortDao;
 
-    public View(User user) {
+    public View(User user, DataSource dataSource) {
 
         userInput = new Scanner(System.in);
         this.user = user;
+        this.jdbcResortDao = new JdbcResortDao(dataSource);
     }
 
     /**
@@ -60,7 +64,7 @@ public class View {
 
         while(true) {
             try {
-                int selection = userInput.nextInt();
+                int selection = Integer.parseInt(userInput.nextLine());
                 if (selection > 0 && selection <= max) return selection;
             } catch (Exception e) {
 
@@ -76,8 +80,9 @@ public class View {
         System.out.println("You have selected:");
 
         int count = 1;
-        for (Map.Entry<Resort, Integer> entry : user.getResortPlans().entrySet()) {
-            Resort currentResort = entry.getKey();
+        for (Map.Entry<Integer, Integer> entry : user.getResortPlans().entrySet()) {
+            Integer currentResortId = entry.getKey();
+            Resort currentResort = jdbcResortDao.getResort(currentResortId);
             System.out.println(count + ". " + entry.getValue() + " day(s) at " + currentResort.getResortName());
             planList.add(currentResort);
             count++;

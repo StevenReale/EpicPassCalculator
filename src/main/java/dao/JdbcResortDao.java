@@ -20,8 +20,8 @@ public class JdbcResortDao implements ResortDao {
     @Override
     public Resort getResort(int resortId) {
         Resort resort = null;
-        String sql = "SELECT resort.name, resort.tier, region.region_id FROM resort\n" +
-                    "JOIN region on resort.region_id = region.region_id" +
+        String sql = "SELECT resort.resort_id, resort.name, resort.tier, region.region_id FROM resort\n" +
+                    "JOIN region on resort.region_id = region.region_id " +
                     "WHERE resort_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, resortId);
         if (result.next()) {

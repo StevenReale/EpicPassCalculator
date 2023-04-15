@@ -22,7 +22,7 @@ public class UserTests {
     public void adding_resort_appears_in_map() {
         //Act
         testUser.addOrUpdateResortPlans(RESORT_1, ONE_DAY);
-        Map<Resort, Integer> plans = testUser.getResortPlans();
+        Map<Integer, Integer> plans = testUser.getResortPlans();
 
         //Assert
         Assert.assertEquals("Resort should appear in map and have correct number of days.", plans.get(RESORT_1), ONE_DAY);
@@ -34,7 +34,7 @@ public class UserTests {
         //Act
         testUser.addOrUpdateResortPlans(RESORT_1, ONE_DAY);
         testUser.addOrUpdateResortPlans(RESORT_1, TWO_DAYS);
-        Map<Resort, Integer> plans = testUser.getResortPlans();
+        Map<Integer, Integer> plans = testUser.getResortPlans();
 
         //Assert
         Assert.assertEquals("Size of map should be 1", plans.size(), 1);

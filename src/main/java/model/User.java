@@ -8,18 +8,18 @@ import java.util.Map;
 public class User {
 
     private String name;
-    private Map<Resort, Integer> resortPlans = new HashMap<>();
+    private Map<Integer, Integer> resortPlans = new HashMap<>();
 
     public User(String name) {
         this.name = name;
     }
 
-    public Map<Resort, Integer> getResortPlans() {
+    public Map<Integer, Integer> getResortPlans() {
         return resortPlans;
     }
 
     public void addOrUpdateResortPlans(Resort newResort, int numOfDays) {
-        resortPlans.put(newResort, numOfDays);
+        resortPlans.put(newResort.getResortId(), numOfDays);
     }
 
     public void deleteResortPlans(Resort resort) {
